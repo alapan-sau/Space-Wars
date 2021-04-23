@@ -1,0 +1,9 @@
+import {WebGLRenderer} from '../../../node_modules/three/src/Three.js';
+
+function createRenderer(){
+    const renderer = new WebGLRenderer({antialias : true})
+    return renderer;
+    renderer.physicallyCorrectLights = true;
+}
+
+export {createRenderer};
