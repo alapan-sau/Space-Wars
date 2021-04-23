@@ -4,12 +4,17 @@ import {setupModel} from './setupModel.js'
 
 async function loadBullet(x, y, z) {
   const loader = new GLTFLoader();
-  const bulletData = await loader.loadAsync('/assets/star.glb');
-  console.log (bulletData);
+  const bulletData = await loader.loadAsync('/assets/missile_new1.glb');
+  // console.log (bulletData);
 
   const bullet = setupModel(bulletData);
-  bullet.position.set(x+10, y, z);
-  bullet.rotation.y = MathUtils.degToRad(90)
+  bullet.position.set(x, y, z);
+  bullet.scale.set(0.5, 0.5, 0.5)
+
+  // bullet.rotation.z = MathUtils.degToRad(+20)
+
+
+  bullet.type = 'bullet';
 //   bullet.rotation.x = MathUtils.degToRad(0)
 //   bullet.rotation.z = MathUtils.degToRad(90)
 //   enemy.scale.set(0.6, 0.6, 0.6)

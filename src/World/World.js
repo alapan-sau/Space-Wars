@@ -38,20 +38,18 @@ class World {
     scene.add(hero);
     loop.updatables.push(hero);
 
-    const { enemy } = await loadEnemy();
-    scene.add(enemy);
-    loop.updatables.push(enemy);
-
-
-
+    // const { enemy } = await loadEnemy();
+    // scene.add(enemy);
+    // loop.updatables.push(enemy);
 
     // Add controlls
     window.addEventListener("keydown", async function (e) {
       loop.keys[e.code] = true;
       if(e.code == 'Space'){
-        const { bullet } = await loadBullet(hero.position.x, hero.position.y, hero.position.z);
+        var { bullet } = await loadBullet(hero.position.x + 1, hero.position.y , hero.position.z);
         scene.add(bullet);
         loop.updatables.push(bullet);
+
       }
     });
     window.addEventListener("keyup", function (e) {
@@ -59,22 +57,20 @@ class World {
     });
 
 
-  }
+    // Add the hero accesible to loop
+    loop.hero = hero;
 
+  }
   render() {
     // draw a single frame
     renderer.render(scene, camera);
   }
-
   start(){
     loop.start()
   }
-
   stop(){
     loop.stop()
   }
-
-
 }
 
 export { World };

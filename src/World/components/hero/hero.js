@@ -5,15 +5,17 @@ import {setupModel} from './setupModel.js'
 async function loadHero() {
   const loader = new GLTFLoader();
   const heroData = await loader.loadAsync('/assets/hero.glb');
-  console.log (heroData);
+  //   console.log (heroData);
 
   const hero = setupModel(heroData);
-  hero.position.set(-50, 0, 10);
+  hero.position.set(-40, 0, 10);
   hero.rotation.y = MathUtils.degToRad(90)
   hero.rotation.x = MathUtils.degToRad(0)
   hero.rotation.z = MathUtils.degToRad(90)
   hero.scale.set(0.5, 0.5, 0.5)
 
+
+  hero.type = 'hero';
   const speedx = 0.8
   // this method will be called once per frame
   hero.tick = (delta, keys) => {
@@ -26,11 +28,11 @@ async function loadHero() {
           hero.position.x+=speedx;
       }
       if(keys["ArrowUp"]){
-          hero.rotation.x-=0.01
+          hero.rotation.x-=0.02
           hero.position.y+=speedx;
       }
       if(keys["ArrowDown"]){
-          hero.rotation.x+=0.01
+          hero.rotation.x+=0.02
           hero.position.y-=speedx;
       }
       if(!keys["ArrowDown"] && !keys["ArrowUp"]){
