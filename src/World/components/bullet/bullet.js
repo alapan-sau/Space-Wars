@@ -2,9 +2,9 @@ import {GLTFLoader} from '../../../../node_modules/three/examples/jsm/loaders/GL
 import { MathUtils } from '../../../../node_modules/three/src/Three.js'
 import {setupModel} from './setupModel.js'
 
-async function loadBullet(x, y, z) {
+async function loadBullet(x, y, z, type) {
   const loader = new GLTFLoader();
-  const bulletData = await loader.loadAsync('/assets/missile_new1.glb');
+  const bulletData = await loader.loadAsync('/assets/missile.glb');
   // console.log (bulletData);
 
   const bullet = setupModel(bulletData);
@@ -15,14 +15,24 @@ async function loadBullet(x, y, z) {
 
 
   bullet.type = 'bullet';
+  bullet.e_type = type
+
+
 //   bullet.rotation.x = MathUtils.degToRad(0)
 //   bullet.rotation.z = MathUtils.degToRad(90)
 //   enemy.scale.set(0.6, 0.6, 0.6)
 
 
 
-  const speedx = 1
+  var speedx = 1
   // this method will be called once per frame
+
+  if(bullet.e_type == 'enemy'){
+    console.log("created")
+    speedx = -1
+    bullet.rotation.y = MathUtils.degToRad(-180)
+  }
+
   bullet.tick = (delta, keys) => {
       bullet.position.x += speedx;
   };

@@ -23,17 +23,29 @@ async function loadHero() {
       // controlls
       if(keys["ArrowLeft"]){
           hero.position.x-=speedx;
+          if(hero.position.x < -50){
+            hero.position.x = -50
+          }
       }
       if(keys["ArrowRight"]){
           hero.position.x+=speedx;
+          if(hero.position.x > 50){
+            hero.position.x = 50
+          }
       }
       if(keys["ArrowUp"]){
           hero.rotation.x-=0.02
           hero.position.y+=speedx;
+          if(hero.position.y > 25){
+            hero.position.y = 25
+          }
       }
       if(keys["ArrowDown"]){
           hero.rotation.x+=0.02
           hero.position.y-=speedx;
+          if(hero.position.y < -25){
+            hero.position.y = -25
+          }
       }
       if(!keys["ArrowDown"] && !keys["ArrowUp"]){
           hero.rotation.x=0

@@ -38,15 +38,11 @@ class World {
     scene.add(hero);
     loop.updatables.push(hero);
 
-    // const { enemy } = await loadEnemy();
-    // scene.add(enemy);
-    // loop.updatables.push(enemy);
-
     // Add controlls
     window.addEventListener("keydown", async function (e) {
       loop.keys[e.code] = true;
       if(e.code == 'Space'){
-        var { bullet } = await loadBullet(hero.position.x + 1, hero.position.y , hero.position.z);
+        var { bullet } = await loadBullet(hero.position.x + 1, hero.position.y , hero.position.z, 'hero');
         scene.add(bullet);
         loop.updatables.push(bullet);
 
