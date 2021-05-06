@@ -18,6 +18,8 @@ let renderer;
 let scene;
 let loop;
 
+
+// The most Abstracted class in the game
 class World {
   constructor(container) {
     camera = createCamera();
@@ -25,10 +27,7 @@ class World {
     renderer = createRenderer();
     loop = new Loop(camera, scene, renderer);
     container.append(renderer.domElement);
-
     const light = createLights();
-    // const cube = createCube();
-
     scene.add(light);
     const resizer = new Resizer(container, camera, renderer);
   }
@@ -52,10 +51,8 @@ class World {
       loop.keys[e.code] = false;
     });
 
-
-    // Add the hero accesible to loop
+    // make the hero accesible to loop
     loop.hero = hero;
-
   }
   render() {
     // draw a single frame

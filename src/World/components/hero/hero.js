@@ -2,11 +2,15 @@ import {GLTFLoader} from '../../../../node_modules/three/examples/jsm/loaders/GL
 import { MathUtils } from '../../../../node_modules/three/src/Three.js'
 import {setupModel} from './setupModel.js'
 
+
+//imports a hero model
 async function loadHero() {
   const loader = new GLTFLoader();
   const heroData = await loader.loadAsync('/assets/hero.glb');
   //   console.log (heroData);
 
+
+  //set up the configuration
   const hero = setupModel(heroData);
   hero.position.set(-40, 0, 10);
   hero.rotation.y = MathUtils.degToRad(90)

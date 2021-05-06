@@ -7,7 +7,7 @@ const setSize = (container, camera, renderer) => {
 };
 
 
-
+// Makes the game responsive
 class Resizer {
     constructor(container, camera, renderer) {
         setSize(container,camera,renderer);

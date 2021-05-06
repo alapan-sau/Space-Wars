@@ -17,8 +17,8 @@ class Loop{
         this.score = 0;
         this.health = 100;
 
-        document.getElementById("health").innerHTML = "Score: 0"
-        document.getElementById("score").innerHTML = "Health: 100"
+        document.getElementById("health").innerHTML = "Health: 100"
+        document.getElementById("score").innerHTML = "Score: 0"
     }
     start() {
         this.renderer.setAnimationLoop(() => {
@@ -32,7 +32,6 @@ class Loop{
     }
 
     async tick(){
-        // console.log(this.keys);
         // only call the getDelta function once per frame!
         const delta = clock.getDelta();
 
@@ -74,7 +73,7 @@ class Loop{
             }
         }
 
-        // at regular interval remove items
+        // at regular interval remove items to clean the game data
         if(this.num_ticks % 1000 == 0){
             // remove external objects
             for (const object of this.updatables) {
@@ -88,15 +87,18 @@ class Loop{
             }
         }
 
-        document.getElementById("health").innerHTML = "Score: " + this.score
-        document.getElementById("score").innerHTML = "Health: " + this.health
+        // Update Health and Score
+        document.getElementById("health").innerHTML = "Health: " + this.health
+        document.getElementById("score").innerHTML = "Score: " + this.score
 
-        // Check collision:
-        // if(this.num_ticks % 5 == 0){
 
+
+        // COLLISIONS Hereafter
+
+        // firstly, generated a box surrounding the hero
         const heroBox = new Box3().setFromObject( this.hero);
 
-        // generate all_hero_bullet_boxes
+        // next, generate all_hero_bullet_boxes
         const all_bullets_boxes = []
         for (const object of this.updatables) {
             if(object.type == 'bullet' && object.position.x > -60 && object.position.x < 60 && object.e_type == 'hero'){
@@ -104,8 +106,9 @@ class Loop{
             }
         }
 
-        // all enemies
+
         for (const object of this.updatables) {
+            // collision between hero and star
             if(object.type == 'star' && object.position.x > -60 && object.position.x < 60){
                 const starBox = new Box3().setFromObject(object);
                 if(heroBox.intersectsBox(starBox)){
@@ -117,8 +120,10 @@ class Loop{
                     this.score +=10
                 }
             }
+            // collisions of enemy
             else if(object.type == 'enemy' && object.position.x > -60 && object.position.x < 60){
                 const enemyBox = new Box3().setFromObject(object);
+                // enemy & hero_bullets
                 for(const bullet_box of all_bullets_boxes){
                     if(enemyBox.intersectsBox(bullet_box)){
                         this.scene.remove(object)
@@ -129,11 +134,12 @@ class Loop{
                         this.score += 50;
                     }
                 }
+                // enemy & hero
                 if(heroBox.intersectsBox(enemyBox)){
                     this.health -= 20
                     if(this.health<=0){
                         this.health=0
-                        document.getElementById("score").innerHTML = "GAME OVER :( !!";
+                        document.getElementById("health").innerHTML = "GAME OVER :( !!";
                         this.stop()
                     }
                     else{
@@ -145,6 +151,7 @@ class Loop{
                     }
                 }
             }
+            // collision of hero & enemy_bullet
             else if(object.type == 'bullet' && object.position.x > -60 && object.position.x < 60 && object.e_type=='enemy'){
                 const enemyMissileBox = new Box3().setFromObject(object);
                 if(heroBox.intersectsBox(enemyMissileBox)){
@@ -156,13 +163,12 @@ class Loop{
                     this.health -= 10;
                     if(this.health<=0){
                         this.health=0
-                        document.getElementById("score").innerHTML = "GAME OVER :( !!";
+                        document.getElementById("health").innerHTML = "GAME OVER :( !!";
                         this.stop()
                     }
                 }
             }
         }
-        // }
     }
 }
 

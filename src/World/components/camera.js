@@ -1,5 +1,6 @@
 import {PerspectiveCamera} from '../../../node_modules/three/src/Three.js'
 
+// creates a camera
 function createCamera(){
     const camera = new PerspectiveCamera(
         35, // fov = Field Of View

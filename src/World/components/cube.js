@@ -1,5 +1,6 @@
 import { BoxBufferGeometry, Mesh, MeshBasicMaterial, MeshStandardMaterial , MathUtils} from '../../../node_modules/three/src/Three.js';
 
+// creates a cube
 function createCube() {
     // create a geometry
     const geometry = new BoxBufferGeometry(1, 0.2, 0.2);
